@@ -470,7 +470,7 @@ def add_agent(name=None, agent_id=None, key=None, ip='any', force_time=-1, use_o
     :return: Agent ID and Agent key.
     """
     # Check length of agent name
-    if len(name) > 128:
+    if len(name) > common.agent_name_len_limit:
         raise WazuhError(1738)
 
     new_agent = Agent(name=name, ip=ip, id=agent_id, key=key, force=force_time, use_only_authd=use_only_authd)

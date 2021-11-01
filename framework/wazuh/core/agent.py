@@ -752,7 +752,7 @@ class Agent:
                 agent_key = key
         else:
             hash1 = hashlib.md5("{0}{1}{2}".format(int(time()), name, platform()).encode())
-            hash1.update(urandom(128))
+            hash1.update(urandom(common.agent_name_len_limit))
             hash2 = hashlib.md5(f"{ip}{agent_id}".encode())
             agent_key = hash1.hexdigest() + hash2.hexdigest()
 
