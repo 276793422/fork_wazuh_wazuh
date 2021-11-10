@@ -27,10 +27,11 @@ extern "C"
 typedef void((*send_data_callback_t)(const char* log, const char* tag));
 typedef void((*logging_callback_t)(modules_log_level_t level, const char* tag));
 
-enum class dbResult
+enum class dbQueryResult
 {
-    DB_SUCCESS,
-    DB_ERROR
+    SUCCESS,
+    MAX_ROWS_ERROR,
+    DBSYNC_ERROR
 };
 
 class FIMDB

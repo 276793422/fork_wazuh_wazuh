@@ -185,15 +185,15 @@ int FIMDB::insertItem(const nlohmann::json& item)
     catch (const DbSync::max_rows_error& ex)
     {
         m_loggingFunction(LOG_INFO, ex.what());
-        return 1;
+        return MAX_ROWS_ERROR;
     }
     catch (const std::exception& ex)
     {
         m_loggingFunction(LOG_ERROR, ex.what());
-        return 2;
+        return DBSYNC_ERROR;
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 int FIMDB::removeItem(const nlohmann::json& item)
@@ -205,15 +205,15 @@ int FIMDB::removeItem(const nlohmann::json& item)
     catch (const DbSync::max_rows_error& ex)
     {
         m_loggingFunction(LOG_INFO, ex.what());
-        return 1;
+        return MAX_ROWS_ERROR;
     }
     catch (const std::exception& ex)
     {
         m_loggingFunction(LOG_ERROR, ex.what());
-        return 2;
+        return DBSYNC_ERROR;
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 int FIMDB::updateItem(const nlohmann::json& item, ResultCallbackData callbackData)
@@ -225,15 +225,15 @@ int FIMDB::updateItem(const nlohmann::json& item, ResultCallbackData callbackDat
     catch (const DbSync::max_rows_error& ex)
     {
         m_loggingFunction(LOG_INFO, ex.what());
-        return 1;
+        return MAX_ROWS_ERROR;
     }
     catch (const std::exception& ex)
     {
         m_loggingFunction(LOG_ERROR, ex.what());
-        return 2;
+        return DBSYNC_ERROR;
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 int FIMDB::executeQuery(const nlohmann::json& item, ResultCallbackData callbackData)
@@ -245,13 +245,13 @@ int FIMDB::executeQuery(const nlohmann::json& item, ResultCallbackData callbackD
     catch (const DbSync::max_rows_error& ex)
     {
         m_loggingFunction(LOG_INFO, ex.what());
-        return 1;
+        return MAX_ROWS_ERROR;
     }
     catch (const std::exception& ex)
     {
         m_loggingFunction(LOG_ERROR, ex.what());
-        return 2;
+        return DBSYNC_ERROR;
     }
 
-    return 0;
+    return SUCCESS;
 }
