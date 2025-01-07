@@ -1,6 +1,6 @@
 /*
  * Wazuh shared modules utils
- * Copyright (C) 2015-2021, Wazuh Inc.
+ * Copyright (C) 2015, Wazuh Inc.
  * October 19, 2020.
  *
  * This program is free software; you can redistribute it
@@ -11,7 +11,7 @@
 
 #ifndef CMD_HELPER_TESTS_H
 #define CMD_HELPER_TESTS_H
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 class CmdUtilsTest : public ::testing::Test
 {

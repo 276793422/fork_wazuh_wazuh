@@ -151,6 +151,8 @@
       "data.aws.userIdentity.userName",
       "data.aws.vpcEndpointId",
       "data.command",
+      "data.cis.group",
+      "data.cis.rule_title",
       "data.data",
       "data.docker.Actor.Attributes.container",
       "data.docker.Actor.Attributes.image",
@@ -163,6 +165,16 @@
       "data.dstport",
       "data.dstuser",
       "data.extra_data",
+      "data.gcp.jsonPayload.queryName",
+      "data.gcp.jsonPayload.vmInstanceName",
+      "data.gcp.resource.labels.location",
+      "data.gcp.resource.labels.project_id",
+      "data.gcp.resource.labels.source_type",
+      "data.gcp.resource.type",
+      "data.github.org",
+      "data.github.actor",
+      "data.github.action",
+      "data.github.repo",
       "data.hardware.serial",
       "data.id",
       "data.integration",
@@ -171,6 +183,39 @@
       "data.netinfo.iface.ipv6.address",
       "data.netinfo.iface.mac",
       "data.netinfo.iface.name",
+      "data.office365.Actor.ID",
+      "data.office365.UserId",
+      "data.office365.Operation",
+      "data.office365.ClientIP",
+      "data.ms-graph.relationship",
+      "data.ms-graph.classification",
+      "data.ms-graph.detectionSource",
+      "data.ms-graph.determination",
+      "data.ms-graph.remediationStatus",
+      "data.ms-graph.roles",
+      "data.ms-graph.verdict",
+      "data.ms-graph.serviceSource",
+      "data.ms-graph.severity",
+      "data.ms-graph.actorDisplayName",
+      "data.ms-graph.alertWebUrl",
+      "data.ms-graph.assignedTo",
+      "data.ms-graph.category",
+      "data.ms-graph.comments",
+      "data.ms-graph.description",
+      "data.ms-graph.detectorId",
+      "data.ms-graph.evidence._comment",
+      "data.ms-graph.id",
+      "data.ms-graph.incidentId",
+      "data.ms-graph.incidentWebUrl",
+      "data.ms-graph.mitreTechniques",
+      "data.ms-graph.providerAlertId",
+      "data.ms-graph.resource",
+      "data.ms-graph.status",
+      "data.ms-graph.tenantId",
+      "data.ms-graph.threatDisplayName",
+      "data.ms-graph.threatFamilyName",
+      "data.ms-graph.title",
+      "data.ms-graph.appliedConditionalAccessPolicies",
       "data.os.architecture",
       "data.os.build",
       "data.os.codename",
@@ -259,7 +304,6 @@
       "data.sca.check.registry",
       "data.sca.check.remediation",
       "data.sca.check.result",
-      "data.sca.check.status",
       "data.sca.check.title",
       "data.sca.description",
       "data.sca.file",
@@ -444,8 +488,7 @@
       "syscheck.value_name",
       "syscheck.value_type",
       "syscheck.changed_attributes",
-      "title",
-      "type"
+      "title"
     ]
   },
   "mappings": {
@@ -729,6 +772,9 @@
           "level": {
             "type": "long"
           },
+          "tsc": {
+            "type": "keyword"
+          },
           "id": {
             "type": "keyword"
           },
@@ -995,6 +1041,19 @@
           "id": {
             "type": "keyword"
           },
+          "azureSignInStatus": {
+            "properties": {
+              "additionalDetails": {
+                "type": "keyword"
+              },
+              "errorCode": {
+                "type": "integer"
+              },
+              "failureReason": {
+                "type": "keyword"
+              }
+            }
+          },
           "status": {
             "type": "keyword"
           },
@@ -1079,6 +1138,166 @@
                     "type": "double"
                   }
                 }
+              }
+            }
+          },
+          "office365": {
+            "properties": {
+              "Actor": {
+                "properties": {
+                  "ID": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "UserId": {
+                "type": "keyword"
+              },
+              "Operation": {
+                "type": "keyword"
+              },
+              "ClientIP": {
+                "type": "keyword"
+              },
+              "ResultStatus": {
+                "type": "keyword"
+              },
+              "Subscription": {
+                "type": "keyword"
+              }
+            }
+          },
+          "github": {
+            "properties": {
+              "org": {
+                "type": "keyword"
+              },
+              "actor": {
+                "type": "keyword"
+              },
+              "action": {
+                "type": "keyword"
+              },
+              "actor_location": {
+                "properties": {
+                  "country_code": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "repo": {
+                "type": "keyword"
+              }
+            }
+          },
+          "ms-graph": {
+            "properties": {
+              "relationship": {
+                "type": "keyword"
+              },
+              "classification": {
+                "type": "keyword"
+              },
+              "detectionSource": {
+                "type": "keyword"
+              },
+              "determination": {
+                "type": "keyword"
+              },
+              "remediationStatus": {
+                "type": "keyword"
+              },
+              "roles": {
+                "type": "keyword"
+              },
+              "verdict": {
+                "type": "keyword"
+              },
+              "serviceSource": {
+                "type": "keyword"
+              },
+              "severity": {
+                "type": "keyword"
+              },
+              "actorDisplayName": {
+                "type": "keyword"
+              },
+              "alertWebUrl": {
+                "type": "keyword"
+              },
+              "assignedTo": {
+                "type": "keyword"
+              },
+              "category": {
+                "type": "keyword"
+              },
+              "comments": {
+                "type": "keyword"
+              },
+              "createdDateTime": {
+                "type": "date"
+              },
+              "description": {
+                "type": "text"
+              },
+              "detectorId": {
+                "type": "keyword"
+              },
+              "evidence": {
+                "type": "nested",
+                "properties": {
+                  "_comment": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "firstActivityDateTime": {
+                "type": "date"
+              },
+              "id": {
+                "type": "keyword"
+              },
+              "incidentId": {
+                "type": "keyword"
+              },
+              "incidentWebUrl": {
+                "type": "keyword"
+              },
+              "lastActivityDateTime": {
+                "type": "date"
+              },
+              "lastUpdateDateTime": {
+                "type": "date"
+              },
+              "mitreTechniques": {
+                "type": "keyword"
+              },
+              "providerAlertId": {
+                "type": "keyword"
+              },
+              "resolvedDateTime": {
+                "type": "date"
+              },
+              "resource": {
+                "type": "keyword"
+              },
+              "status": {
+                "type": "keyword"
+              },
+              "tenantId": {
+                "type": "keyword"
+              },
+              "threatDisplayName": {
+                "type": "keyword"
+              },
+              "threatFamilyName": {
+                "type": "keyword"
+              },
+              "title": {
+                "type": "keyword"
+              },
+              "appliedConditionalAccessPolicies": {
+                "type": "keyword"
               }
             }
           },
@@ -1506,9 +1725,6 @@
                   },
                   "reason": {
                     "type": "keyword"
-                  },
-                  "status": {
-                    "type": "keyword"
                   }
                 }
               },
@@ -1732,6 +1948,22 @@
           },
           "aws": {
             "properties": {
+              "source": {
+                "type": "keyword"
+              },
+              "accountId": {
+                "type": "keyword"
+              },
+              "log_info": {
+                "properties": {
+                  "s3bucket": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "region": {
+                "type": "keyword"
+              },
               "bytes": {
                 "type": "long"
               },
@@ -1795,6 +2027,136 @@
                     }
                   }
                 }
+              }
+            }
+          },
+          "cis": {
+            "properties": {
+              "benchmark": {
+                "type": "keyword"
+              },
+              "error": {
+                "type": "long"
+              },
+              "fail": {
+                "type": "long"
+              },
+              "group": {
+                "type": "keyword"
+              },
+              "notchecked": {
+                "type": "long"
+              },
+              "pass": {
+                "type": "long"
+              },
+              "result": {
+                "type": "keyword"
+              },
+              "rule_title": {
+                "type": "keyword"
+              },
+              "score": {
+                "type": "long"
+              },
+              "timestamp": {
+                "type": "keyword"
+              },
+              "unknown": {
+                "type": "long"
+              }
+            }
+          },
+          "docker": {
+            "properties": {
+              "Action": {
+                "type": "keyword"
+              },
+              "Actor": {
+                "properties": {
+                  "Attributes": {
+                    "properties": {
+                      "image": {
+                        "type": "keyword"
+                      },
+                      "name": {
+                        "type": "keyword"
+                      }
+                    }
+                  }
+                }
+              },
+              "Type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "gcp": {
+            "properties": {
+              "jsonPayload": {
+                "properties": {
+                  "authAnswer": {
+                    "type": "keyword"
+                  },
+                  "queryName": {
+                    "type": "keyword"
+                  },
+                  "responseCode": {
+                    "type": "keyword"
+                  },
+                  "vmInstanceId": {
+                    "type": "keyword"
+                  },
+                  "vmInstanceName": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "resource": {
+                "properties": {
+                  "labels": {
+                    "properties": {
+                      "location": {
+                        "type": "keyword"
+                      },
+                      "project_id": {
+                        "type": "keyword"
+                      },
+                      "source_type": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "severity": {
+                "type": "keyword"
+              }
+            }
+          },
+          "osquery": {
+            "properties": {
+              "name": {
+                "type": "keyword"
+              },
+              "pack": {
+                "type": "keyword"
+              },
+              "action": {
+                "type": "keyword"
+              },
+              "calendarTime": {
+                "type": "keyword"
+              }
+            }
+          },
+          "parameters": {
+            "properties": {
+              "extra_args": {
+                "type": "keyword"
               }
             }
           }

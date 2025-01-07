@@ -2,7 +2,7 @@
   -  OpenVPN decoders
   -  Author: Julio Camargo <julio.camargo@trustux.com.br>
   -  Updated by Wazuh, Inc.
-  -  Copyright (C) 2015-2021, Wazuh Inc.
+  -  Copyright (C) 2015, Wazuh Inc.
   -  This program is a free software; you can redistribute it and/or modify it under the terms of GPLv2.
 -->
 
@@ -90,3 +90,4 @@ Jan 28 14:25:49 VPN-SERVER-05892 openvpn: Incorrect password supplied for LDAP D
   <regex offset="after_prematch">^"CN=(\.+),OU=(\.+),(\.+)"</regex>
   <order>ldap_data.Username,ldap_data.Department,ldap_data.SecurityGroup</order>
 </decoder>
+

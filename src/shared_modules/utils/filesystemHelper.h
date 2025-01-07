@@ -1,6 +1,6 @@
 /*
  * Wazuh shared modules utils
- * Copyright (C) 2015-2021, Wazuh Inc.
+ * Copyright (C) 2015, Wazuh Inc.
  * October 23, 2020.
  *
  * This program is free software; you can redistribute it
@@ -20,7 +20,11 @@
 #include <sstream>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <vector>
 #include <dirent.h>
+#include <algorithm>
+#include <array>
+#include "stringHelper.h"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-function"
@@ -32,6 +36,18 @@ namespace Utils
         struct stat info {};
         return !stat(path.c_str(), &info) && (info.st_mode & S_IFDIR);
     }
+    static bool existsRegular(const std::string& path)
+    {
+        struct stat info {};
+        return !stat(path.c_str(), &info) && (info.st_mode & S_IFREG);
+    }
+#ifndef WIN32
+    static bool existsSocket(const std::string& path)
+    {
+        struct stat info {};
+        return !stat(path.c_str(), &info) && ((info.st_mode & S_IFMT) == S_IFSOCK);
+    }
+#endif
     struct DirSmartDeleter
     {
         void operator()(DIR* dir)

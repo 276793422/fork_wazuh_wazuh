@@ -1,18 +1,23 @@
-# Copyright (C) 2015-2021, Wazuh Inc.
+# Copyright (C) 2015, Wazuh Inc.
 # Created by Wazuh, Inc. <info@wazuh.com>.
 # This program is a free software; you can redistribute it and/or modify it under the terms of GPLv2
 
+import asyncio
 from datetime import datetime, date
-from unittest.mock import patch, ANY
+from unittest.mock import patch, ANY, call
 
 import pytest
 from connexion import ProblemException
 
 from api import util
-from wazuh.core.exception import WazuhError, WazuhPermissionError, WazuhResourceNotFound, WazuhInternalError
+from wazuh.core.exception import WazuhError, WazuhPermissionError, WazuhResourceNotFound, \
+    WazuhInternalError
 
 
 class TestClass:
+    """Mock swagger type."""
+    __test__ = False
+
     def __init__(self, origin=None):
         self.swagger_types = {
             'api_response': 'test_api_response',
@@ -246,3 +251,45 @@ def test_get_invalid_keys(dikt, f_kwargs, invalid_keys):
     than one nesting level."""
     invalid = util.get_invalid_keys(dikt, f_kwargs)
     assert invalid == invalid_keys
+
+
+@pytest.mark.parametrize('link', [
+    '',
+    'https://documentation.wazuh.com/current/user-manual/api/reference.html'
+])
+@pytest.mark.asyncio
+async def test_deprecate_endpoint(link):
+    """Check that `deprecate_endpoint` decorator adds valid deprecation headers."""
+    class DummyObject:
+        headers = {}
+
+    @util.deprecate_endpoint(link=link)
+    def dummy_func():
+        future_response = asyncio.Future()
+        future_response.set_result(DummyObject())
+        return future_response
+
+    response = await dummy_func()
+    assert response.headers.pop('Deprecated') == 'true', 'No deprecation key in header'
+    if link:
+        assert response.headers.pop('Link') == f'<{link}>; rel="Deprecated"', 'No link was found'
+
+    assert response.headers == {}, f'Unexpected deprecation headers were found: {response.headers}'
+
+
+@patch('api.util.raise_if_exc')
+@pytest.mark.asyncio
+async def test_only_master_endpoint(mock_exc):
+    """Test that only_master_endpoint decorator raise the correct exception when running_in_master_node is False."""
+
+    @util.only_master_endpoint
+    async def func_():
+        return ret_val
+
+    ret_val = 'foo'
+
+    with patch('api.util.running_in_master_node', return_value=False):
+        await func_()
+        mock_exc.assert_called_once_with(WazuhResourceNotFound(902))
+    with patch('api.util.running_in_master_node', return_value=True):
+        assert await func_() == ret_val

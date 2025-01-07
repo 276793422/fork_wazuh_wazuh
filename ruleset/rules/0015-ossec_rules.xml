@@ -2,7 +2,7 @@
   -  OSSEC rules
   -  Author: Daniel Cid.
   -  Updated by Wazuh, Inc.
-  -  Copyright (C) 2015-2021, Wazuh Inc.
+  -  Copyright (C) 2015, Wazuh Inc.
   -  Copyright (C) 2009 Trend Micro Inc.
   -  This program is a free software; you can redistribute it and/or modify it under the terms of GPLv2.
 -->
@@ -11,57 +11,57 @@
   <rule id="500" level="0">
     <category>ossec</category>
     <decoded_as>ossec</decoded_as>
-    <description>Grouping of ossec rules.</description>
+    <description>Grouping of wazuh rules.</description>
   </rule>
 
   <rule id="501" level="3">
     <if_sid>500</if_sid>
     <if_fts />
     <match>Agent started</match>
-    <description>New ossec agent connected.</description>
+    <description>New wazuh agent connected.</description>
     <group>pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
   <rule id="502" level="3">
     <if_sid>500</if_sid>
-    <match>Ossec started</match>
-    <description>Ossec server started.</description>
+    <match>Manager started</match>
+    <description>Wazuh server started.</description>
     <group>pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
   <rule id="503" level="3">
     <if_sid>500</if_sid>
     <match>Agent started</match>
-    <description>Ossec agent started.</description>
+    <description>Wazuh agent started.</description>
     <group>pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_AU.14,nist_800_53_AU.5,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
   </rule>
 
   <rule id="504" level="3">
     <if_sid>500</if_sid>
     <match>Agent disconnected</match>
-    <description>Ossec agent disconnected.</description>
-    <group>pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_AU.14,nist_800_53_AU.5,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
+    <description>Wazuh agent disconnected.</description>
     <mitre>
       <id>T1562.001</id>
     </mitre>
+    <group>pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_AU.14,nist_800_53_AU.5,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
   </rule>
 
   <rule id="505" level="3">
     <if_sid>500</if_sid>
     <match>Agent removed</match>
-    <description>Ossec agent removed.</description>
-    <group>pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_AU.14,nist_800_53_AU.5,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
+    <description>Wazuh agent removed.</description>
     <mitre>
       <id>T1562.001</id>
     </mitre>
+    <group>pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_AU.14,nist_800_53_AU.5,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
   </rule>
 
   <rule id="506" level="3">
     <if_sid>500</if_sid>
     <match>Agent stopped</match>
-    <description>Ossec agent stopped.</description>
+    <description>Wazuh agent stopped.</description>
     <mitre>
-      <id>T1089</id>
+      <id>T1562.001</id>
     </mitre>
     <group>pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_AU.14,nist_800_53_AU.5,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
   </rule>
@@ -77,7 +77,7 @@
     <if_sid>509</if_sid>
     <description>Host-based anomaly detection event (rootcheck).</description>
     <group>rootcheck,pci_dss_10.6.1,gdpr_IV_35.7.d,</group>
-   <!-- <if_fts />  -->
+    <!-- <if_fts />  -->
   </rule>
 
   <rule id="511" level="0">
@@ -116,7 +116,6 @@
     <match>^Starting syscheck scan|^Ending syscheck scan.|</match>
     <match>^Starting OpenSCAP scan|^Ending OpenSCAP scan.|</match>
     <match>^Starting CIS-CAT scan|^Ending CIS-CAT scan.|</match>
-    <match>^Starting vulnerability scan|^Ending vulnerability scan.|</match>
     <match>^Starting Azure-logs scan.|^Ending Azure-logs scan.</match>
     <description>Ignoring scan messages.</description>
     <group>rootcheck,syscheck,pci_dss_10.6.1,gdpr_IV_35.7.d,gdpr_IV_30.1.g,hipaa_164.312.b,nist_800_53_AU.6,tsc_CC7.2,tsc_CC7.3,</group>
@@ -140,10 +139,10 @@
     <if_sid>514</if_sid>
     <match>Adware|Spyware</match>
     <description>Windows Adware/Spyware application found.</description>
-    <group>rootcheck,pci_dss_10.6.1,gpg13_4.2,gdpr_IV_35.7.d,</group>
     <mitre>
       <id>T1072</id>
     </mitre>
+    <group>rootcheck,pci_dss_10.6.1,gpg13_4.2,gdpr_IV_35.7.d,</group>
   </rule>
 
   <rule id="519" level="7">
@@ -155,8 +154,8 @@
 
   <rule id="520" level="3">
     <if_sid>500</if_sid>
-    <match>Duplicated IP</match>
-    <description>Trying to add an agent with duplicated IP.</description>
+    <match>Duplicate IP</match>
+    <description>Trying to add an agent with duplicate IP.</description>
     <group>pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
@@ -164,17 +163,17 @@
     <if_sid>510</if_sid>
     <match>Possible kernel level rootkit</match>
     <description>Possible kernel level rootkit</description>
-    <group>rootcheck,</group>
     <mitre>
       <id>T1014</id>
     </mitre>
+    <group>rootcheck,</group>
   </rule>
 
   <!-- Process monitoring rules -->
   <rule id="530" level="0">
     <if_sid>500</if_sid>
     <match>^ossec: output: </match>
-    <description>OSSEC process monitoring rules.</description>
+    <description>Wazuh process monitoring rules.</description>
     <group>process_monitor,</group>
   </rule>
 
@@ -186,7 +185,7 @@
     <group>low_diskspace,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
- <rule id="532" level="0">
+  <rule id="532" level="0">
     <if_sid>531</if_sid>
     <match>cdrom|/media|usb|/mount|floppy|dvd</match>
     <description>Ignoring external medias.</description>
@@ -219,8 +218,8 @@
 
   <rule id="536" level="0">
     <if_sid>531</if_sid>
-      <regex>'df -P':\s+/dev/loop\d+\s+\d+\s+\d+\s+0\s+100%\s+/snap/\w+/\d+</regex>
-      <description>Ignore snap disks because they are always at 100% of capacity</description>
+    <regex>'df -P':\s+/dev/loop\d+\s+\d+\s+\d+\s+0\s+100%\s+/snap/\w+/\d+</regex>
+    <description>Ignore snap disks because they are always at 100% of capacity</description>
   </rule>
 
 
@@ -228,23 +227,21 @@
     <category>ossec</category>
     <decoded_as>syscheck_integrity_changed</decoded_as>
     <description>Integrity checksum changed.</description>
-    <group>syscheck,syscheck_entry_modified,syscheck_file,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,hipaa_164.312.c.1,hipaa_164.312.c.2,nist_800_53_SI.7,tsc_PI1.4,tsc_PI1.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
     <mitre>
       <id>T1565.001</id>
     </mitre>
+    <group>syscheck,syscheck_entry_modified,syscheck_file,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,hipaa_164.312.c.1,hipaa_164.312.c.2,nist_800_53_SI.7,tsc_PI1.4,tsc_PI1.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
   <rule id="553" level="7">
     <category>ossec</category>
     <decoded_as>syscheck_deleted</decoded_as>
     <description>File deleted.</description>
-    <group>syscheck,syscheck_entry_deleted,syscheck_file,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,hipaa_164.312.c.1,hipaa_164.312.c.2,nist_800_53_SI.7,tsc_PI1.4,tsc_PI1.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
     <mitre>
       <id>T1070.004</id>
-    </mitre>
-    <mitre>
       <id>T1485</id>
     </mitre>
+    <group>syscheck,syscheck_entry_deleted,syscheck_file,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,hipaa_164.312.c.1,hipaa_164.312.c.2,nist_800_53_SI.7,tsc_PI1.4,tsc_PI1.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
   <rule id="554" level="5">
@@ -296,20 +293,20 @@
     <if_sid>500</if_sid>
     <match>^ossec: File size reduced</match>
     <description>Log file size reduced.</description>
-    <group>attacks,pci_dss_10.5.2,pci_dss_11.4,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.9,nist_800_53_SI.4,tsc_CC6.1,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
     <mitre>
       <id>T1565.001</id>
     </mitre>
+    <group>attacks,pci_dss_10.5.2,pci_dss_11.4,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.9,nist_800_53_SI.4,tsc_CC6.1,tsc_CC7.2,tsc_CC7.3,tsc_CC6.8,</group>
   </rule>
 
   <rule id="593" level="9">
     <if_sid>500</if_sid>
     <match>^ossec: Event log cleared</match>
     <description>Microsoft Event log cleared.</description>
-    <group>logs_cleared,pci_dss_10.5.2,gpg13_10.1,gdpr_II_5.1.f,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.9,tsc_CC6.1,tsc_CC7.2,tsc_CC7.3,</group>
     <mitre>
       <id>T1070</id>
     </mitre>
+    <group>logs_cleared,pci_dss_10.5.2,gpg13_10.1,gdpr_II_5.1.f,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.9,tsc_CC6.1,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
   <rule id="594" level="5">
@@ -319,6 +316,7 @@
     <description>Registry Key Integrity Checksum Changed</description>
     <mitre>
       <id>T1565.001</id>
+      <id>T1112</id>
     </mitre>
   </rule>
 
@@ -329,9 +327,8 @@
     <description>Registry Key Entry Deleted.</description>
     <mitre>
       <id>T1070.004</id>
-    </mitre>
-    <mitre>
       <id>T1485</id>
+      <id>T1112</id>
     </mitre>
   </rule>
 
@@ -468,6 +465,13 @@
     <group>active_response,pci_dss_11.4,gdpr_IV_35.7.d,nist_800_53_SI.4,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,tsc_CC7.4,</group>
   </rule>
 
+  <rule id="658" level="5">
+    <if_sid>650</if_sid>
+    <status>inactive</status>
+    <description>Active response related to $(script) has been activated, but may not have an effect because the firewall is $(status)</description>
+    <group>active_response,pci_dss_11.4,gdpr_IV_35.7.d,nist_800_53_SI.4,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,tsc_CC7.4,</group>
+  </rule>
+
   <!-- logcollector rules -->
 
   <rule id="700" level="0">
@@ -489,6 +493,7 @@
     <description>Registry Value Integrity Checksum Changed</description>
     <mitre>
       <id>T1565.001</id>
+      <id>T1112</id>
     </mitre>
   </rule>
 
@@ -499,9 +504,8 @@
     <description>Registry Value Entry Deleted.</description>
     <mitre>
       <id>T1070.004</id>
-    </mitre>
-    <mitre>
       <id>T1485</id>
+      <id>T1112</id>
     </mitre>
   </rule>
 

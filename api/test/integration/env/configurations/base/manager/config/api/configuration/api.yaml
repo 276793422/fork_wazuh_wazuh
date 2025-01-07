@@ -5,16 +5,16 @@ port: 55000
 
 https:
  enabled: yes
- key: "api/configuration/ssl/server.key"
- cert: "api/configuration/ssl/server.crt"
+ key: "server.key"
+ cert: "server.crt"
  use_ca: False
- ca: "api/configuration/ssl/ca.crt"
+ ca: "ca.crt"
 
 # Logging configuration
 # Values for API log level: disabled, info, warning, error, debug, debug2 (each level includes the previous level).
 logs:
  level: "info"
- path: "logs/api.log"
+ format: "plain"
 
 # Cross-origin resource sharing: https://github.com/aio-libs/aiohttp-cors#usage
 cors:
@@ -23,11 +23,6 @@ cors:
  expose_headers: "*"
  allow_headers: "*"
  allow_credentials: no
-
-# Cache (time in seconds)
-cache:
-  enabled: yes
-  time: 0.750
 
 # Access parameters
 access:
